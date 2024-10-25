@@ -23,6 +23,9 @@
             margin-bottom: 20px;
             display: none;  /* Hide videos by default */
         }
+        video:first-of-type {
+            margin-top: 20px;
+        }
         .black-screen {
             background: black;
             width: 100vw;
@@ -51,19 +54,18 @@
                 // If password is correct, show videos
                 var videos = document.getElementsByTagName('video');
                 for(var i = 0; i < videos.length; i++) {
-                    videos[i].style.display = 'block';
+                    videos[i].style.display = 'block';               
                 }
             }
         }
     </script>
 </head>
 <body>
-    <!-- 使用有效的 URL 替换以下 src -->
-    <video id="videoPlayer1" src="https://www.dropbox.com/scl/fi/8fxyd500bfsq9jf39cchh/FOEN-050_8_iris2-2.mp4?rlkey=5nzquq22hvzkpl61aosykvu9r&st=3v0ibna0&raw=1"></video>
-    <div class="controls">
+ <video id="videoPlayer1" src="https://www.dropbox.com/scl/fi/0ig2mm61s0l83xtxeimu0/FOEN-050_5_iris2-2.mp4?rlkey=4pmvt1mgmgbtw8fuo1q1owx1u&st=wn04xh6x&raw=1"></video>
+ <div class="controls">
         <button class="button" id="playButton1">Start</button>
         <button class="button" id="pauseButton1">Stop</button>
-        <input type="range" id="progressBar1" value="0" step="0.01" style="width: 600px;">
+        <input type="range" id="progressBar1" value="0" step="0.01" style="width: 600px;"> <!-- 調節播放進度的滑桿 -->
         <span id="currentTime1">0:00</span> / <span id="duration1">0:00</span>
         <label for="volumeControl1">Volume:</label>
         <input type="range" id="volumeControl1" min="0" max="1" step="0.01" value="1">
@@ -75,12 +77,12 @@
             <option value="2">2x</option>
         </select>
     </div>
-
-    <video id="videoPlayer2" src="https://www.dropbox.com/scl/fi/5y6b4lj5ths9gftdqqauq/FOEN-050_6_iris2-2.mp4?rlkey=l1okchpy7rq0p0878qh0it8ht&st=pw2jecen&raw=1"></video>
-    <div class="controls">
+ 
+ <video id="videoPlayer2" src="https://www.dropbox.com/scl/fi/8fxyd500bfsq9jf39cchh/FOEN-050_8_iris2-2.mp4?rlkey=5nzquq22hvzkpl61aosykvu9r&st=3v0ibna0&raw=1"></video>
+ <div class="controls">
         <button class="button" id="playButton2">Start</button>
         <button class="button" id="pauseButton2">Stop</button>
-        <input type="range" id="progressBar2" value="0" step="0.01" style="width: 600px;">
+         <input type="range" id="progressBar2" value="0" step="0.01" style="width: 600px;"> <!-- 調節播放進度的滑桿 -->
         <span id="currentTime2">0:00</span> / <span id="duration2">0:00</span>
         <label for="volumeControl2">Volume:</label>
         <input type="range" id="volumeControl2" min="0" max="1" step="0.01" value="1">
@@ -93,11 +95,11 @@
         </select>
     </div>
 
-    <video id="videoPlayer3" src="https://www.dropbox.com/scl/fi/0ig2mm61s0l83xtxeimu0/FOEN-050_5_iris2-2.mp4?rlkey=4pmvt1mgmgbtw8fuo1q1owx1u&st=wn04xh6x&raw=1"></video>
+    <video id="videoPlayer3" src="https://www.dropbox.com/scl/fi/5y6b4lj5ths9gftdqqauq/FOEN-050_6_iris2-2.mp4?rlkey=l1okchpy7rq0p0878qh0it8ht&st=pw2jecen&raw=1"></video>
     <div class="controls">
         <button class="button" id="playButton3">Start</button>
         <button class="button" id="pauseButton3">Stop</button>
-        <input type="range" id="progressBar3" value="0" step="0.01" style="width: 600px;">
+        <input type="range" id="progressBar3" value="0" step="0.01" style="width: 600px;"> <!-- 調節播放進度的滑桿 -->
         <span id="currentTime3">0:00</span> / <span id="duration3">0:00</span>
         <label for="volumeControl3">Volume:</label>
         <input type="range" id="volumeControl3" min="0" max="1" step="0.01" value="1">
@@ -122,55 +124,56 @@
             const volumeControl = document.getElementById(volumeControlId);
             const speedControl = document.getElementById(speedControlId);
 
-            // When metadata is loaded, set duration
+            // 當視頻元數據加載完成時
             video.addEventListener('loadedmetadata', () => {
                 durationLabel.textContent = formatTime(video.duration);
                 progressBar.max = video.duration;
             });
 
-            // Play video
+            // 播放視頻
             playButton.addEventListener('click', () => {
                 video.play();
             });
 
-            // Pause video
+            // 暫停視頻
             pauseButton.addEventListener('click', () => {
                 video.pause();
             });
 
-            // Update progress bar and current time
+            // 更新進度條
             video.addEventListener('timeupdate', () => {
                 progressBar.value = video.currentTime;
                 currentTimeLabel.textContent = formatTime(video.currentTime);
             });
 
-            // Adjust volume
+            // 調整音量
             volumeControl.addEventListener('input', () => {
                 video.volume = volumeControl.value;
             });
 
-            // Adjust playback speed
+            // 調整播放速度
             speedControl.addEventListener('change', () => {
                 video.playbackRate = parseFloat(speedControl.value);
             });
 
-            // Set video current time based on progress bar input
+            // 更新進度條的值
             progressBar.addEventListener('input', () => {
                 video.currentTime = progressBar.value;
             });
         }
 
-       // Format time as minutes:seconds
+        // 格式化時間為分鐘:秒
         function formatTime(seconds) {
             const minutes = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
             return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
         }
 
-        // Initialize all video controls
+        // 初始化所有視頻的控制
         setupVideoControls('videoPlayer1', 'playButton1', 'pauseButton1', 'progressBar1', 'currentTime1', 'duration1', 'volumeControl1', 'speedControl1');
         setupVideoControls('videoPlayer2', 'playButton2', 'pauseButton2', 'progressBar2', 'currentTime2', 'duration2', 'volumeControl2', 'speedControl2');
         setupVideoControls('videoPlayer3', 'playButton3', 'pauseButton3', 'progressBar3', 'currentTime3', 'duration3', 'volumeControl3', 'speedControl3');
     </script>
+
 </body>
 </html>

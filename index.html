@@ -21,20 +21,10 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
-            display: none;  /* Hide videos by default */
+            display: block;  /* Show videos by default */
         }
         video:first-of-type {
             margin-top: 20px;
-        }
-        .black-screen {
-            background: black;
-            width: 100vw;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: none; /* Hidden by default */
-            z-index: 9999;
         }
     </style>
     <script>
@@ -43,25 +33,16 @@
         });
 
         window.onload = function() {
-            var password = prompt("請輸入密碼:");
-            if (password !== "12345") {
-                document.body.innerHTML = ''; // Clear the body content
-                var blackScreen = document.createElement('div');
-                blackScreen.className = 'black-screen';
-                document.body.appendChild(blackScreen);
-                blackScreen.style.display = 'block';
-            } else {
-                // If password is correct, show videos
-                var videos = document.getElementsByTagName('video');
-                for(var i = 0; i < videos.length; i++) {
-                    videos[i].style.display = 'block';               
-                }
+            // Automatically play videos when the page loads
+            var videos = document.getElementsByTagName('video');
+            for (var i = 0; i < videos.length; i++) {
+                videos[i].play(); // Play each video
             }
         }
     </script>
 </head>
 <body>
- <video id="videoPlayer1" src="https://www.dropbox.com/scl/fi/0ig2mm61s0l83xtxeimu0/FOEN-050_5_iris2-2.mp4?rlkey=4pmvt1mgmgbtw8fuo1q1owx1u&st=wn04xh6x&raw=1"></video>
+ <video id="videoPlayer1" src="G:\7_iris2.mp4"></video>
  <div class="controls">
         <button class="button" id="playButton1">Start</button>
         <button class="button" id="pauseButton1">Stop</button>
@@ -78,7 +59,7 @@
         </select>
     </div>
  
- <video id="videoPlayer2" src="https://www.dropbox.com/scl/fi/8fxyd500bfsq9jf39cchh/FOEN-050_8_iris2-2.mp4?rlkey=5nzquq22hvzkpl61aosykvu9r&st=3v0ibna0&raw=1"></video>
+ <video id="videoPlayer2" src="G:\3_iris2.mp4"></video>
  <div class="controls">
         <button class="button" id="playButton2">Start</button>
         <button class="button" id="pauseButton2">Stop</button>
